@@ -1,0 +1,78 @@
+{
+  "Comment": "Battle for TimeStone",
+  "StartAt": "Thanos Threaten",
+  "States": {
+    "Thanos Threaten": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:544613043517:function:v2-My-TimeStone-ThanosThreaten-SAJBJ3TRPC7G",
+      "Next": "Wait X Seconds"
+    },
+    "Wait X Seconds": {
+      "Type": "Wait",
+      "SecondsPath": "$.wait_time",
+      "Next": "Get Battlefield Status"
+    },
+    "Get Battlefield Status": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:544613043517:function:v2-My-TimeStone-ThanosGetBattlefieldStatus-67GP3HJX1FP",
+      "Next": "Battlefield Status"
+    },
+    "Battlefield Status": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.status",
+          "StringEquals": "fight",
+          "Next": "Fight"
+        },
+        {
+          "Variable": "$.status",
+          "StringEquals": "kill",
+          "Next": "Kill"
+        }
+      ],
+      "Default": "Wait X Seconds"
+    },
+    "Fight": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:544613043517:function:v2-My-TimeStone-ThanosFight-MHGFAE2R7N8Z",
+      "Next": "Check Damage Status"
+    },
+    "Kill": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:544613043517:function:v2-My-TimeStone-ThanosKill-HUX3GY7TR6MR",
+      "Next": "Check Damage Status"
+    },
+    "Check Damage Status": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:544613043517:function:v2-My-TimeStone-ThanosCheckDamageStatus-1CT7NP1HNWM2G",
+      "Next": "Damage Status"
+    },
+    "Damage Status": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.dead",
+          "StringEquals": "thanos",
+          "Next": "Game Over"
+        },
+        {
+          "Variable": "$.dead",
+          "StringEquals": "earth",
+          "Next": "Game Over"
+        },
+        {
+          "Variable": "$.dead",
+          "StringEquals": "both",
+          "Next": "Game Over"
+        }
+      ],
+      "Default": "Thanos Threaten"
+    },
+    "Game Over": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:544613043517:function:v2-My-TimeStone-ThanosGameOver-1GGPFSQGL4JFS",
+      "End": true
+    }
+  }
+}

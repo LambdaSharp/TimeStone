@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Battlefield</title>
+    <link rel="stylesheet" href="https://unpkg.com/picnic">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+</head>
+
+<body>
+    <main id="app" class="visual">
+        <header>
+            <h1>Battlefield
+            </h1>
+        </header>
+        <span id='output'></span>
+    </main>
+    <script src="./battlefield.json"></script>
+    <script type="text/javascript">
+    console.log('before foreach');
+        $.getJSON("battlefield.json", function(data) {
+            console.log(JSON.stringify(data));
+            data.forEach(d => {
+                var node = document.createElement('LI');
+                var textnode =  document.createTextNode(JSON.stringify(`${d.Id} | ${d.Value}`))
+                node.appendChild(textnode)
+                document.querySelector('#output').appendChild(node)
+                console.log("the good stuff: " + d);
+            })
+    });
+    </script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+{
+    "Comment": "Step function to defend planet earth",
+    "StartAt": "Get Battlefield Status",
+    "States": {
+      "Get Battlefield Status": {
+        "Type": "Task",
+        "Resource": "--------- UPDATE HERE ------------",
+        "Next": "Battlefield Status"
+      },
+      "Battlefield Status": {
+        "Type": "Choice",
+        "Choices": [
+          {
+            "Variable": "$.status",
+            "StringEquals": "defend",
+            "Next": "Recruit and submit"
+          }
+        ],
+        "Default": "Wait X Seconds"
+      },
+      "Wait X Seconds": {
+        "Type": "Wait",
+        "SecondsPath": "$.wait_time",
+        "Next": "Get Battlefield Status"
+      },
+      "Recruit and submit": {
+        "Type": "Task",
+        "Resource": "--------- UPDATE HERE ------------",
+        "End": true
+      }
+    }
+  }

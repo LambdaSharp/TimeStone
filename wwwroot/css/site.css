@@ -1,0 +1,57 @@
+input[disabled] {
+    background-color: #e8e8e8;
+}
+
+.inline-control {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.visual {
+    text-align: left;
+    width: 100%;
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 1%;
+}
+
+.strike {
+    text-decoration: line-through;
+    color: dimgrey;
+}
+
+.flex-grid {
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    padding-top: 1%;
+}
+
+.flex-small {
+    flex: initial;
+    width: 20px;
+}
+
+.col {
+    flex: 1 0 0;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.text-right {
+    text-align: right;
+}
+
+section {
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.settings-icon {
+    color: #555555;
+    float: right;
+    font-size: 90%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

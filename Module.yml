@@ -1,0 +1,130 @@
+# The Module Name is used as prefix for all contained resources.
+Module: My.TimeStone
+
+# The Module Version is shown in the CloudFormation stack and Lambda function descriptions.
+Version: 1.0-DEV
+
+# The Module Description is shown in the AWS CloudFormation console with the version number.
+Description: Module description
+Using:
+
+  - Module: LambdaSharp.S3.IO:0.5
+
+# The Items section defines values and resources for the module.
+Items:
+
+  - Function: Gateway
+    Description: TO-DO - update function description
+    Memory: 256
+    Timeout: 30
+    Sources:
+
+      - Api: GET:/items
+        Invoke: GetItems
+
+      - Api: POST:/items
+        Invoke: AddItems
+
+      - Api: GET:/grave
+        Invoke: GetGrave
+
+      - Api: POST:/grave
+        Invoke: AddGrave
+
+      - Api: GET:/clear
+        Invoke: Clear
+
+  - Resource: WebsiteBucket
+    Description: S3 bucket for hosting website assets
+    Type: AWS::S3::Bucket
+    Allow: Full
+    Scope: "*"
+    Properties:
+      WebsiteConfiguration:
+        ErrorDocument: error/index.html
+        IndexDocument: index.html
+
+  - Resource: WebsiteBucketPolicy
+    Description: Public access policy
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      PolicyDocument:
+        Id: WebsiteBucket
+        Version: 2012-10-17
+        Statement:
+          - Sid: PublicReadForGetBucketObjects
+            Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub "${WebsiteBucket.Arn}/*"
+      Bucket: !Ref WebsiteBucket
+    DependsOn: DeployWebsiteFiles
+
+  - Package: WebsiteFiles
+    Description: Website files to deploy
+    Files: wwwroot/
+
+  - Resource: DeployWebsiteFiles
+    Type: LambdaSharp::S3::Unzip
+    Properties:
+      SourceBucket: !Ref DeploymentBucketName
+      SourceKey: !Ref WebsiteFiles
+      DestinationBucket: !Ref WebsiteBucket
+      DestinationKey: ""
+
+  # Export website url
+  - Variable: WebsiteUrl
+    Description: Website URL
+    Scope: public
+    Value: !GetAtt WebsiteBucket.WebsiteURL
+
+    # Export website url
+  - Variable: APIGatewayUrl
+    Description: API Gateway URL
+    Scope: public
+    Value: !Ref Module::RestApi::Url
+
+  - Function: ThanosThreaten
+    Description: TO-DO - update function description
+    Memory: 256
+    Timeout: 30
+
+  - Function: ThanosGetBattlefieldStatus
+    Description: TO-DO - update function description
+    Memory: 256
+    Timeout: 30
+
+  - Function: ThanosCheckDamageStatus
+    Description: TO-DO - update function description
+    Memory: 256
+    Timeout: 30
+
+  - Function: ThanosGameOver
+    Description: TO-DO - update function description
+    Memory: 256
+    Timeout: 30
+
+  - Function: GameLogic
+    Description: TO-DO - update function description
+    Memory: 256
+    Timeout: 30
+
+  - Function: AvengersGetBattlefieldStatus
+    Description: TO-DO - update function description
+    Memory: 256
+    Timeout: 30
+
+  - Function: AvengersRecruitAndSubmit
+    Description: TO-DO - update function description
+    Memory: 256
+    Timeout: 120
+
+  - Function: ThanosKill
+    Description: TO-DO - update function description
+    Memory: 256
+    Timeout: 30
+
+  - Function: ThanosFight
+    Description: TO-DO - update function description
+    Memory: 256
+    Timeout: 30
