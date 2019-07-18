@@ -29,6 +29,9 @@ R1::7/17/19 10:41:18 PM::AVENGERS::DEFEND | [{\"id\":1011334,\"name\":\"3-D Man\
 ```
 
 # Game Logic
+## Hero Power
+* The power of a hero is determined by the number of comics they appear in. 
+* [marvel-csharp](https://github.com/rroa/marvel-csharp) API is used in the sample for recruiting an avenger and to calculate the power level. 
 ## Unit Count Limit
 * The Unit Count Limit determines how many avengers you can submit to the battle. Thanos will reject any team submissions that have more than the unit count limit. 
 * The round’s unit count limit is determined by the formula:
