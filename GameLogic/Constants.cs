@@ -6,8 +6,8 @@ namespace My.TimeStone.GameLogic
         public static string APIGATEWAY_URL = "ADD YOUR API GATEWAY URL HERE";
 
         // NOTE: TWEAK THESE FOR GAME DIFFICULTY
-        public static int THANOS_HEALTH = 5000;
-        public static int EARTH_POPULATION = 10000;
+        public static int THANOS_HEALTH = 100000;
+        public static int EARTH_POPULATION = 100000;
         public static int TIME_LIMIT = 60;
         public static int UNIT_CAP_MAX = 100;
         public static int AVERAGE_POWER = 10;
